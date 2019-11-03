@@ -1,0 +1,34 @@
+﻿@model CorePracticeWebApp.ViewModels.MemberManageVm
+@{
+    ViewData["Title"] = "Manage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manage</h2>
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>City</th>
+                <th>Print</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var member in Model.Members)
+            {
+                <tr>
+                    <td>@member.FirstName</td>
+                    <td>@member.LastName</td>
+                    <td>@member.City</td>
+                    <td><a href="#">Print</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
