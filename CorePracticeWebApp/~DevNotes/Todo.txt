@@ -1,8 +1,9 @@
 ﻿-Standard pages
 	X-Members/Index
 	X-Member/Detail
-	-Member/Edit
-	-Member/Add
+	X-Member/Edit
+	X-Deactivate
+	X-Member/Add
 -Advanced pages
 	-Print PDF
 	-HTML template
@@ -12,3 +13,4 @@
 	-Views based off users
 	X-Date Time Autofill for dates
 	-Update labels
+	-Validations

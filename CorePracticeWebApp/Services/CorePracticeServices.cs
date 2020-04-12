@@ -11,8 +11,23 @@ namespace CorePracticeWebApp
     {
         internal static List<Members> GetAllMembers()
         {
-            var members = new List<Members>();
-            return members;
+            var allMembers = new List<Members>();
+            using (var db = new CorePracticeWebAppContext())
+            {
+                allMembers = db.Members.ToList();
+            }
+
+            return allMembers;
+        }
+
+        internal static List<Members> GetActiveMembers()
+        {
+            var activeMembers = new List<Members>();
+            using (var db = new CorePracticeWebAppContext())
+            {
+                activeMembers = db.Members.Where(m => m.IsActive == true).ToList();
+            }
+            return activeMembers;
         }
 
         internal static Members GetMember(int id)
@@ -27,7 +42,7 @@ namespace CorePracticeWebApp
             return member;
         }
 
-        internal static void UpdateMember(Members member)
+        internal static EnumServices.UpdateResult UpdateMember(Members member)
         {
             using(var db = new CorePracticeWebAppContext())
             {
@@ -44,6 +59,7 @@ namespace CorePracticeWebApp
                         memberInDb.LastName = member.LastName;
                         memberInDb.State = member.State;
                         memberInDb.StreetAddress = member.StreetAddress;
+                        memberInDb.IsActive = member.IsActive;
 
                         db.SaveChanges();
                     }
@@ -54,7 +70,10 @@ namespace CorePracticeWebApp
                 }
                 catch(Exception e)
                 {
+                    return EnumServices.UpdateResult.fail;
                 }
+
+                return EnumServices.UpdateResult.success;
                 
             }
 

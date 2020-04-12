@@ -10,6 +10,7 @@ namespace CorePracticeWebApp.ViewModels
     {
         public Members Member { get; set; }
         public string ViewMode { get; set; }
+        public string PageMessage { get; set; }
 
         public MemberVm()
         {

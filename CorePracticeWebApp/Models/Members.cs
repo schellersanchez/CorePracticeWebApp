@@ -18,6 +18,6 @@ namespace CorePracticeWebApp.Models
         public string Country { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public DateTime? DateofBap { get; set; }
-        public bool? IsActive { get; set; }
+        public bool? IsActive { get; set; } = true;
     }
 }

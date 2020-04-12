@@ -5,6 +5,13 @@
 }
 
 <h2>@Model.Member.FirstName @Model.Member.LastName</h2>
+@if (!String.IsNullOrEmpty(Model.PageMessage))
+{
+    <div class="alert alert-primary" role="alert">
+        @Model.PageMessage;
+    </div>
+}
+
 <div class="row">
     @using (Html.BeginForm(Model.ViewMode, "Member", FormMethod.Post))
     {
@@ -20,7 +27,7 @@
             </div>
             <div class="col-lg-6">
                 @Html.LabelFor(m => m.Member.LastName)
-                @Html.TextBoxFor(m => m.Member.LastName, new { @class = "form-control ", @required = "true"})
+                @Html.TextBoxFor(m => m.Member.LastName, new { @class = "form-control ", @required = "true" })
             </div>
             <div class="col-lg-6">
                 @Html.LabelFor(m => m.Member.StreetAddress)
@@ -48,9 +55,12 @@
             </div>
             <div class="col-lg-12" style="padding:5px">
                 <center>
-                    <button class="btn btn-default updateBtn">Update Member</button>
                     <button class="btn btn-default addBtn">Add Member</button>
+                    <button class="btn btn-success updateBtn">Update Member</button>
+                    <a href="#" class="btn btn-danger deleteBtn" role="button" aria-pressed="true">Delete</a>
+                    <a href="#" class="btn btn-default cancelBtn" role="button" aria-pressed="true">Cancel</a>
                     <a href="#" class="btn btn-primary printBtn" role="button" aria-pressed="true">Print</a>
+                    <a href="#" class="btn btn-default editBtn" role="button" aria-pressed="true">Edit</a>
                 </center>
             </div>
 
@@ -74,21 +84,58 @@
                     $(".updateBtn").hide();
                     break;
                 case "edit":
+                    $(".form-control").attr("disabled", "disabled");
                     $(".addBtn").hide();
+                    $('.updateBtn').hide();
+                    $('.deleteBtn').hide();
+                    $('.cancelBtn').hide();
                     break;
                 case "add":
                     $(".updateBtn").hide();
                     $('.printBtn').hide();
+                    $('.editBtn').hide();
+                    $('.deleteBtn').hide();
                     break;
                 default:
                     //dosomething
                     break;
             }
 
-            if (viewMode == "readonly") {
+            $('.editBtn').click(function () {
+                $(".form-control").removeAttr("disabled");
+                $('.editBtn').hide();
+                $('.printBtn').hide();
+                $('.updateBtn').show();
+                $('.deleteBtn').show();
+                $('.cancelBtn').show();
+            });
+            $('.cancelBtn').click(function () {
                 $(".form-control").attr("disabled", "disabled");
-                $(".updateBtn").hide();
-            }
+                $('.editBtn').show();
+                $('.printBtn').show();
+                $('.updateBtn').hide();
+                $('.deleteBtn').hide();
+                $('.cancelBtn').hide();
+            });
+            $('.deleteBtn').click(function () {
+                var member = @Html.Raw(Json.Serialize(@Model.Member));
+                if (confirm("Are you sure you want to delete?")) {
+                    $.ajax({
+                        method: "POST",
+                        data: member,
+                        url: '@Url.Action("Delete","Member", new { @Model.Member.Id})',
+                        success: function (result) {
+                            window.location.href = '@Url.Action("Manage","Member")';
+                        }
+                    });
+                }
+                else {
+                    return false;
+
+                }
+            });
+
+
         });
     </script>
 }
