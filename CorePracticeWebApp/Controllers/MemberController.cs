@@ -7,6 +7,7 @@ using CorePracticeWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace CorePracticeWebApp.Controllers
 {
     public class MemberController : Controller
@@ -16,26 +17,22 @@ namespace CorePracticeWebApp.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var member = new Members();
-            var memberInDb = db.Members.Find(id);
-            if(memberInDb != null)
-            {
-                member = memberInDb;
-            }
+            var member = MemberServices.GetMember(id);
 
-            return View(member);
+            return View("MemberForm", new MemberVm(member, "readonly"));
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-            return View("MemberForm", new Members());
+            return View("MemberForm", new MemberVm("add"));
         }
 
         [HttpPost]
-        public IActionResult Add(Members member)
+        public IActionResult Add(MemberVm memberVm)
         {
-            return Update(member);
+            int id = MemberServices.AddMember(memberVm.Member);
+            return RedirectToAction("Details", "Member", new { @id = id });
         }
 
         [HttpGet]
@@ -43,9 +40,9 @@ namespace CorePracticeWebApp.Controllers
         {
             //var member = CorePracticeServices.GetMember(id);
             var member = db.Members.Find(id);
-            if (!string.IsNullOrEmpty(member.FirstName))
+            if (member != null)
             {
-                return View("MemberForm", member);
+                return View("MemberForm", new MemberVm(member, "edit"));
             }
             else
             {
@@ -54,9 +51,23 @@ namespace CorePracticeWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Members member)
+        public IActionResult Submit(MemberVm member)
         {
-            return Update(member);
+
+            switch (member.ViewMode.ToLower())
+            {
+                case "edit":
+                    //do something
+                    break;  
+                case "add":
+                    //do something
+                    break;
+                default:
+                    //do nothing
+                    break;
+            }
+
+            return RedirectToAction("View", member);
         }
 
         private IActionResult Update(Members member)

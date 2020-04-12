@@ -30,7 +30,7 @@ namespace CorePracticeWebApp.Models
         {
             modelBuilder.Entity<Members>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id);
 
                 entity.Property(e => e.City)
                     .HasMaxLength(255)

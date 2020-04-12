@@ -1,7 +1,8 @@
 ﻿-Standard pages
 	X-Members/Index
-	-Member/Detail
+	X-Member/Detail
 	-Member/Edit
+	-Member/Add
 -Advanced pages
 	-Print PDF
 	-HTML template

@@ -12,7 +12,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>City</th>
-                <th>Print</th>
+                <th>Details</th>
                 <th>Edit</th>
             </tr>
         </thead>
@@ -23,8 +23,8 @@
                     <td>@member.FirstName</td>
                     <td>@member.LastName</td>
                     <td>@member.City</td>
-                    <td><a href="#">Print</a></td>
-                    <td><a href="#">Delete</a></td>
+                    <td>@Html.ActionLink("Details", "Details", "Member", new {@id=member.Id} ) </td>
+                    <td>@Html.ActionLink("Edit", "Edit", "Member", new { @id = member.Id }) </td>
                 </tr>
             }
 
