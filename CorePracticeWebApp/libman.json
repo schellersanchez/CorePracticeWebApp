@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery-datetimepicker@2.5.20",
+      "destination": "wwwroot/lib/jquery-datetimepicker"
+    },
+    {
+      "library": "datatables@1.10.20",
+      "destination": "wwwroot/lib/datatables"
+    },
+    {
+      "library": "jqueryui@1.12.1",
+      "destination": "wwwroot/lib/jqueryui"
+    }
+  ]
+}

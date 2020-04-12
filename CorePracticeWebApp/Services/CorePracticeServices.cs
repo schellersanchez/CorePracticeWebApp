@@ -8,15 +8,15 @@ namespace CorePracticeWebApp
 {
     public class CorePracticeServices
     {
-        internal static List<Member> GetAllMembers()
+        internal static List<Members> GetAllMembers()
         {
-            var members = new List<Member>();
+            var members = new List<Members>();
             return members;
         }
 
-        internal static Member GetMember(int id)
+        internal static Members GetMember(int id)
         {
-            var member = new Member();
+            var member = new Members();
             return member;
         }
     }

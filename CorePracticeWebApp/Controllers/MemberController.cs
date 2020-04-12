@@ -5,26 +5,35 @@ using System.Threading.Tasks;
 using CorePracticeWebApp.Models;
 using CorePracticeWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CorePracticeWebApp.Controllers
 {
     public class MemberController : Controller
     {
+        CorePracticeWebAppContext db = new CorePracticeWebAppContext();
+
         [HttpGet]
-        public IActionResult Index(int id)
+        public IActionResult Details(int id)
         {
-            var member = CorePracticeServices.GetMember(id);
+            var member = new Members();
+            var memberInDb = db.Members.Find(id);
+            if(memberInDb != null)
+            {
+                member = memberInDb;
+            }
+
             return View(member);
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-            return View("MemberForm", new Member());
+            return View("MemberForm", new Members());
         }
 
         [HttpPost]
-        public IActionResult Add(Member member)
+        public IActionResult Add(Members member)
         {
             return Update(member);
         }
@@ -32,7 +41,8 @@ namespace CorePracticeWebApp.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var member = CorePracticeServices.GetMember(id);
+            //var member = CorePracticeServices.GetMember(id);
+            var member = db.Members.Find(id);
             if (!string.IsNullOrEmpty(member.FirstName))
             {
                 return View("MemberForm", member);
@@ -44,14 +54,36 @@ namespace CorePracticeWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Member member)
+        public IActionResult Edit(Members member)
         {
             return Update(member);
         }
 
-        private IActionResult Update(Member member)
+        private IActionResult Update(Members member)
         {
-            return RedirectToAction("Index", new { id = member.Id });
+            if(member.Id == 0)
+            {
+                db.Members.Add(member);
+            }
+            else
+            {
+                var memberInDb = db.Members.Find(member.Id);
+                if(memberInDb != null)
+                {
+                    memberInDb.FirstName = member.FirstName;
+                    memberInDb.LastName = member.LastName;
+                    memberInDb.StreetAddress = member.StreetAddress;
+                    memberInDb.City = member.City;
+                    memberInDb.State = member.State;
+                    memberInDb.Country = member.Country;
+                    memberInDb.DateOfBirth = member.DateOfBirth;
+                    memberInDb.DateofBap = member.DateofBap;
+                }
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { id = member.Id });
         }
 
         [HttpGet]
@@ -59,7 +91,8 @@ namespace CorePracticeWebApp.Controllers
         {
             var viewModel = new MemberManageVm()
             {
-                Members = CorePracticeServices.GetAllMembers()
+                //Members = CorePracticeServices.GetAllMembers()
+                Members = db.Members.ToList()
             };
             return View(viewModel);
         }

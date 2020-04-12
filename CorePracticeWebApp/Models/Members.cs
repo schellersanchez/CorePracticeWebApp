@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CorePracticeWebApp.Models
 {
-    public class Member
+    public partial class Members
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -14,8 +12,8 @@ namespace CorePracticeWebApp.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public DateTime DateOfBap { get; set; }
-        public bool IsActive { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public DateTime? DateofBap { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

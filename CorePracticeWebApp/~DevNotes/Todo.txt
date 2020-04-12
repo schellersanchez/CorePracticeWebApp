@@ -1,0 +1,13 @@
+﻿-Standard pages
+	X-Members/Index
+	-Member/Detail
+	-Member/Edit
+-Advanced pages
+	-Print PDF
+	-HTML template
+-Other
+	-Data tables
+	-Login/Password
+	-Views based off users
+	X-Date Time Autofill for dates
+	-Update labels

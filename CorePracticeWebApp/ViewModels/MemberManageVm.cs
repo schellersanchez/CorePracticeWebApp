@@ -8,6 +8,6 @@ namespace CorePracticeWebApp.ViewModels
 {
     public class MemberManageVm
     {
-        public List<Member> Members { get; set; }
+        public List<Members> Members { get; set; }
     }
 }
