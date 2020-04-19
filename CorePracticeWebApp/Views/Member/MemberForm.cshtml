@@ -59,7 +59,7 @@
                     <button class="btn btn-success updateBtn">Update Member</button>
                     <a href="#" class="btn btn-danger deleteBtn" role="button" aria-pressed="true">Delete</a>
                     <a href="#" class="btn btn-default cancelBtn" role="button" aria-pressed="true">Cancel</a>
-                    <a href="#" class="btn btn-primary printBtn" role="button" aria-pressed="true">Print</a>
+                    <a href= "#" class="btn btn-primary printBtn" role="button" aria-pressed="true">Print</a>
                     <a href="#" class="btn btn-default editBtn" role="button" aria-pressed="true">Edit</a>
                 </center>
             </div>
@@ -133,6 +133,9 @@
                     return false;
 
                 }
+            });
+            $('.printBtn').click(function () {
+                window.location.href = '@Url.Action("GetPdf", "Member", new { @Model.Member.Id })'
             });
 
 

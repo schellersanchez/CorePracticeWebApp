@@ -69,6 +69,8 @@ namespace CorePracticeWebApp
                     name: "default",
                     template: "{controller=Member}/{action=Manage}/{id?}");
             });
+
+            
         }
     }
 }

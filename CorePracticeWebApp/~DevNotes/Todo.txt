@@ -5,8 +5,8 @@
 	X-Deactivate
 	X-Member/Add
 -Advanced pages
-	-Print PDF
-	-HTML template
+	X-Print PDF
+	X-HTML template
 -Other
 	-Data tables
 	-Login/Password

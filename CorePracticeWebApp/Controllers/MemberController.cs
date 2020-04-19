@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CorePracticeWebApp.Models;
@@ -148,6 +149,13 @@ namespace CorePracticeWebApp.Controllers
             {
                 return BadRequest("Error Deleting");
             }
+        }
+
+        public IActionResult GetPdf(int id)
+        {
+            var pdf = PrintServices.RenderPdf(id);
+            Stream stream = pdf.Stream;
+            return File(stream, "application/pdf");
         }
 
     }
