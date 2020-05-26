@@ -21,23 +21,26 @@ namespace CorePracticeWebApp
                 throw new FileNotFoundException();
             }
 
-            var text = File.ReadAllText("./Document/Template.docx");
-            text = text.Replace("%%MEMBERNAME%%", member.FirstName + " " + member.LastName).Replace("%%DATEOFBAP%%", member.DateofBap.ToString());
-            File.WriteAllText("./Document/Member.docx", text);
+            var text = File.ReadAllText("./Document/Template.html");
+            var dateString = member.DateofBap == null ? "" : DateTime.Parse(member.DateofBap.ToString()).ToString("MMMM dd, yyyy");
+            text = text.Replace("%%MEMBERNAME%%", member.FirstName + " " + member.LastName).Replace("%%DATEOFBAP%%", dateString);
+            File.WriteAllText($"./Document/Member-{id}.html", text);
 
-            using(var document = DocX.Load("./Document/Template.docx"))
-            {
-                document.ReplaceText("%%MEMBERNAME%%", member.FirstName, false);
-                document.ReplaceText("%%DATEOFBAP%%", member.DateofBap.ToString(), false);
-                DocX.ConvertToPdf()
-                //document.SaveAs("./Document/Member.docx");
-            }
+            //using (var document = DocX.Load("./Document/Template.docx"))
+            //{
+            //    document.ReplaceText("%%MEMBERNAME%%", member.FirstName, false);
+            //    document.ReplaceText("%%DATEOFBAP%%", member.DateofBap.ToString(), false);
+            //    //DocX.ConvertToPdf();
+            //    document.SaveAs("./Document/Member.docx");
+            //}
 
             // Create a PDF from any existing web page
             var Renderer = new IronPdf.HtmlToPdf();
+            Renderer.PrintOptions.PaperOrientation = PdfPrintOptions.PdfPaperOrientation.Landscape;
             //var PDF = Renderer.RenderUrlAsPdf("https://en.wikipedia.org/wiki/Portable_Document_Format");
-            var PDF = Renderer.RenderUrlAsPdf("./Document/Member.docx");
-            PDF.RotatePage(0, 90);
+            var PDF = Renderer.RenderUrlAsPdf($"./Document/Member-{id}.html");
+            File.Delete($"./Document/Member-{id}.html");
+            // PDF.RotatePage(0, 90);
             //PDF.SaveAs("./output/output_"+id+".pdf");
             // This neat trick opens our PDF file so we can see the result
             //System.Diagnostics.Process.Start("wikipedia.pdf");

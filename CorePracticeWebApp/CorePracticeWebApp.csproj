@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocX" Version="1.6.0" />
     <PackageReference Include="jQuery" Version="3.4.1" />
     <PackageReference Include="jQuery-datetimepicker" Version="2.4.5" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -13,6 +14,21 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" PrivateAssets="All" />
     <PackageReference Include="PDF.Core" Version="2020.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Xceed.Document.NET">
+      <HintPath>..\..\..\..\.nuget\packages\docx\1.6.0\lib\net40\Xceed.Document.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Words.NET">
+      <HintPath>..\..\..\..\.nuget\packages\docx\1.1.0\lib\Xceed.Words.NET.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Document\Template.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

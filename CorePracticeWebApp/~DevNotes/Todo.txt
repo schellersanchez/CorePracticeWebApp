@@ -14,3 +14,4 @@
 	X-Date Time Autofill for dates
 	-Update labels
 	-Validations
+	-Convert from code-first EF to database first EF
