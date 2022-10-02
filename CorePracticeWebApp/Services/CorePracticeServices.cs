@@ -85,10 +85,10 @@ namespace CorePracticeWebApp
             {
                 try
                 {
-                    db.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Members] ON");
+                    db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Members] ON");
                     db.Members.Add(member);
                     db.SaveChanges();
-                    db.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Members] OFF");
+                    db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Members] OFF");
 
 
                 }

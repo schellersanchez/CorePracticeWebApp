@@ -37,10 +37,13 @@ namespace CorePracticeWebApp
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            //services.AddDefaultIdentity<IdentityUser>()
+            services.AddIdentityCore<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +52,7 @@ namespace CorePracticeWebApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                //app.UseDatabaseErrorPage();
             }
             else
             {
@@ -60,17 +63,28 @@ namespace CorePracticeWebApp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseCors();
 
             app.UseAuthentication();
+            app.UseRouting();
 
-            app.UseMvc(routes =>
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Member}/{action=Manage}/{id?}");
+            //});
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Member}/{action=Manage}/{id?}");
+                endpoints.MapControllerRoute(
+                    "default",
+                    "{controller=Member}/{action=Manage}/{id?}");
+                //endpoints.MapControllers();
+
             });
 
-            
+
         }
     }
 }
