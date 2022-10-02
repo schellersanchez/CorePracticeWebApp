@@ -1,0 +1,12 @@
+﻿TODO:
+
+-Redo code first migrations
+
+-Add ability for user to upload templates
+--store this in db blob
+--able to select from previous template
+--able to delete uploaded templates
+
+-Deploy to azure web service
+
+-Create export scripts for SQL setup on cloud
